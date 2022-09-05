@@ -6,7 +6,7 @@ import ChartPage from "./pages/ChartPage";
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="container">
         <Routes>
           <Route path="/" element={<CreatePage />} />
           <Route path="/chart" element={<ChartPage />} />

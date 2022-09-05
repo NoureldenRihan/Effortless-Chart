@@ -29,4 +29,18 @@
 
 /* End Responsive Containers */
 /* Start Nav.jsx */
+
+nav {
+  width: 100%;
+}
+
+.logo {
+  width: 275px;
+  margin: auto;
+}
+
+.logoImage {
+  width: 100%;
+}
+
 /* End Nav.jsx */
