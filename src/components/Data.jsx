@@ -53,7 +53,7 @@ function Data() {
       .forEach((value) => values.push(parseInt(value.value)));
 
     chosenColors.forEach((color) => {
-      colors.push(color + "33");
+      colors.push(color + "55");
       bordercolors.push(color + "ff");
     });
 

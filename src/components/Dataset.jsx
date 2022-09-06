@@ -21,8 +21,6 @@ function Dataset() {
           required
         />
       </div>
-      <button className="columnset"></button>
-      <button className="columnset"></button>
     </div>
   );
 }
