@@ -1,3 +1,7 @@
+:root {
+  --lowTransition: 0.3s;
+}
+
 /* Start Responsive Containers */
 
 .container {
@@ -44,3 +48,203 @@ nav {
 }
 
 /* End Nav.jsx */
+/* Start Data.jsx */
+
+.dataContainer {
+  margin: 50px auto;
+  padding: 20px;
+  width: 50vw;
+  border-radius: 10px;
+  box-shadow: 1px 1px 5px 0.2px gray;
+  transition: var(--lowTransition);
+}
+
+.dataContainer:hover {
+  box-shadow: 1px 1px 10px 2px gray;
+}
+
+.title {
+  text-align: center;
+  font-size: 45px;
+  color: #ff0000;
+  margin-bottom: 25px;
+}
+
+.form {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.form button {
+  width: 100%;
+  color: white;
+  font-size: 20px;
+  background-color: rgba(57, 182, 255, 0.8);
+  outline: 0;
+  border: 0;
+  border-radius: 9999px;
+  padding: 10px;
+  cursor: pointer;
+  transition: var(--lowTransition);
+}
+
+.form button:hover {
+  background-color: rgb(40, 175, 252);
+}
+
+input[type="text"] {
+  outline: 0;
+  border: 0;
+  border-bottom: 1px solid gray;
+  transition: var(--lowTransition);
+  padding: 10px 5px 10px 5px;
+  font-size: 18px;
+}
+
+input[type="text"]:focus {
+  border-radius: 10px;
+  background-color: rgb(224, 224, 224);
+}
+
+select {
+  width: 100%;
+}
+
+.full,
+.half {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+}
+
+.full {
+  width: 100%;
+}
+
+.full input,
+select {
+  width: 85%;
+}
+
+.full h3 {
+  width: 15%;
+}
+
+.half {
+  width: calc(50% - 10px);
+}
+
+.half input,
+select {
+  width: 70%;
+}
+
+.half h3 {
+  width: 30%;
+}
+
+.datasets {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.dataset {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.dataset .half {
+  width: 45%;
+  justify-content: center;
+}
+
+.dataset button {
+  width: fit-content;
+  font-size: 15px;
+}
+
+.dataset .columnset {
+  width: 30px;
+  background-color: transparent;
+}
+
+.dataset .columnset:hover {
+  background-color: transparent;
+  cursor: auto;
+}
+
+.datasetInput {
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+  .half {
+    width: 100%;
+  }
+
+  .half input,
+  select {
+    width: 85%;
+  }
+
+  .half h3 {
+    width: 15%;
+  }
+}
+
+.breaker {
+  margin: auto;
+  width: 76%;
+  border: 0.5px solid black;
+}
+
+h2 {
+  width: 100%;
+  text-align: center;
+}
+
+/* End Data.jsx */
+/* Start Chart.jsx */
+
+.chart {
+  margin: 50px 0 0 0;
+}
+
+.buttons {
+  margin: 50px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.buttons button {
+  color: white;
+  font-size: 20px;
+  background-color: rgba(57, 182, 255, 0.8);
+  outline: 0;
+  border: 0;
+  border-radius: 9999px;
+  padding: 10px;
+  cursor: pointer;
+  transition: var(--lowTransition);
+}
+
+.buttons button:hover {
+  background-color: rgb(40, 175, 252);
+}
+
+/* End Chart.jsx */

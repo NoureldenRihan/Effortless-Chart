@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import tst from "./tst";
+import chartDataReducer from "./chartDataReducer";
 
 const allReducers = combineReducers({
-  tst: tst,
+  chartDataReducer,
 });
 
 export default allReducers;
