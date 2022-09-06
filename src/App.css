@@ -223,21 +223,12 @@ select {
   text-align: center;
 }
 
-.additionalOptions {
-  display: none;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+.colorState {
+  width: 50%;
 }
 
-.addOptions {
-  color: rgba(57, 182, 255, 0.8);
-  transition: var(--lowTransition);
-}
-
-.addOptions:hover {
-  color: rgb(40, 175, 252);
+.colorState input {
+  width: 10%;
 }
 
 /* End Data.jsx */

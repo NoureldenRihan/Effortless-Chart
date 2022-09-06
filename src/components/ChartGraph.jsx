@@ -20,7 +20,7 @@ function ChartGraph() {
             data: chartData.data.datasets[0].data,
             backgroundColor: chartData.data.datasets[0].backgroundColor,
             borderColor: chartData.data.datasets[0].borderColor,
-            borderWidth: chartData.data.datasets[0].borderWidth,
+            borderWidth: 2,
           },
         ],
       },

@@ -14,6 +14,8 @@ const chartDataOrganizer = (data) => {
               return 5;
             } else if (data.borderWidth <= 0) {
               return 1;
+            } else if (isNaN(data.borderWidth)) {
+              return 1;
             } else {
               return data.borderWidth;
             }

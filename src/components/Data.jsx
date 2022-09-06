@@ -2,18 +2,45 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux/es/exports";
 import { Link } from "react-router-dom";
 import { createChart } from "../redux/actions/actions";
-import DataColor from "./DataColor";
 import Dataset from "./Dataset";
 
 function Data() {
-  const [dataCounter, setdataCounter] = useState([]);
-  const [idCounter, setidCounter] = useState([]);
+  const [dataCounter, setdataCounter] = useState(2);
+  const [dataset, setdataset] = useState([]);
   const dispatch = useDispatch();
+
+  const setColors = () => {
+    let finalColorSet = [];
+    let state = document.querySelector(
+      "input[type=radio][name=colorState]:checked"
+    ).value;
+    if (state === "single") {
+      let color = getRandomColor();
+      for (let i = 0; i < dataCounter; i++) {
+        finalColorSet.push(color);
+      }
+    } else if (state === "multiple") {
+      for (let i = 0; i < dataCounter; i++) {
+        finalColorSet.push(getRandomColor());
+      }
+    }
+    return finalColorSet;
+  };
+
+  const getRandomColor = () => {
+    let letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
 
   const sendData = (e) => {
     e.preventDefault();
     let labels = [];
     let values = [];
+    let chosenColors = setColors();
     let colors = [];
     let bordercolors = [];
 
@@ -25,9 +52,9 @@ function Data() {
       .querySelectorAll(".datasetValue")
       .forEach((value) => values.push(parseInt(value.value)));
 
-    document.querySelectorAll(".datasetBackgroundColors").forEach((color) => {
-      colors.push(color.value + "33");
-      bordercolors.push(color.value + "ff");
+    chosenColors.forEach((color) => {
+      colors.push(color + "33");
+      bordercolors.push(color + "ff");
     });
 
     let chartData = {
@@ -37,7 +64,6 @@ function Data() {
       values: values,
       labelsTitle: document.getElementById("labelsTitle").value,
       valuesTitle: document.getElementById("valuesTitle").value,
-      borderWidth: parseInt(document.getElementById("borderWidth").value),
       backgroundColors: colors,
       borderColors: bordercolors,
     };
@@ -48,21 +74,22 @@ function Data() {
 
   const removeDataset = (e) => {
     e.preventDefault();
+    setdataset(dataset.slice(0, -1));
     setdataCounter((old) => {
-      old.pop();
-      return [...old];
+      if (old !== 0) {
+        return old - 1;
+      } else {
+        return 1;
+      }
     });
+    return;
   };
 
   const addDataset = (e) => {
     e.preventDefault();
-    setdataCounter((old) => [...old, 1]);
+    setdataset(dataset.concat(<Dataset key={dataset.length} />));
+    setdataCounter(dataCounter + 1);
     return;
-  };
-
-  const showAdditionalOptions = (e) => {
-    document.getElementById("additionalOptions").style.display = "flex";
-    e.target.remove();
   };
 
   return (
@@ -123,29 +150,29 @@ function Data() {
               +
             </button>
           </div>
-          {dataCounter.map(() => {
-            return <Dataset key={Math.random()} />;
-          })}
+          {dataset}
         </div>
         <hr className="breaker" />
-        <h4 className="addOptions" onClick={showAdditionalOptions}>
-          Additional Options
-        </h4>
-        <div id="additionalOptions" className="additionalOptions">
-          <h2>Additional Options</h2>
-          <div className="full">
-            <h3>Label Color: </h3>
-            <input className="datasetBackgroundColors" type="color" />
-          </div>
-          {dataCounter.map(() => {
-            return <DataColor key={Math.random()} />;
-          })}
-          <div className="full">
-            <h3> Border width: </h3>
+        <div className="full">
+          <h3>Colors: </h3>
+          <div className="colorState">
+            <label htmlFor="colorState">Single</label>
             <input
-              id="borderWidth"
-              placeholder="Width in Numbers"
-              type="text"
+              id="labelsTitle"
+              type="radio"
+              name="colorState"
+              value="single"
+              required
+            />
+          </div>
+          <div className="colorState">
+            <label htmlFor="colorState">Multiple</label>
+            <input
+              id="labelsTitle"
+              type="radio"
+              name="colorState"
+              value="multiple"
+              required
             />
           </div>
         </div>
