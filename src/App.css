@@ -53,7 +53,8 @@ nav {
 .dataContainer {
   margin: 50px auto;
   padding: 20px;
-  width: 50vw;
+  max-width: 75vw;
+  min-width: 60vw;
   border-radius: 10px;
   box-shadow: 1px 1px 5px 0.2px gray;
   transition: var(--lowTransition);
@@ -109,6 +110,11 @@ input[type="text"]:focus {
   background-color: rgb(224, 224, 224);
 }
 
+input[type="color"] {
+  border: 0;
+  height: 40px;
+}
+
 select {
   width: 100%;
 }
@@ -120,6 +126,7 @@ select {
   justify-content: flex-start;
   align-items: center;
   gap: 5px;
+  margin-bottom: 10px;
 }
 
 .full {
@@ -210,9 +217,27 @@ select {
   border: 0.5px solid black;
 }
 
-h2 {
+.form h2,
+.form h4 {
   width: 100%;
   text-align: center;
+}
+
+.additionalOptions {
+  display: none;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.addOptions {
+  color: rgba(57, 182, 255, 0.8);
+  transition: var(--lowTransition);
+}
+
+.addOptions:hover {
+  color: rgb(40, 175, 252);
 }
 
 /* End Data.jsx */
