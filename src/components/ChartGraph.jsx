@@ -10,7 +10,7 @@ function ChartGraph() {
 
   const chartSetup = () => {
     const ctx = document.getElementById("chartCanvas").getContext("2d");
-    const myChart = new Chart(ctx, {
+    new Chart(ctx, {
       type: chartData.type,
       data: {
         labels: chartData.data.labels,

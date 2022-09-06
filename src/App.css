@@ -53,11 +53,16 @@ nav {
 .dataContainer {
   margin: 50px auto;
   padding: 20px;
-  max-width: 75vw;
-  min-width: 60vw;
+  width: 75vw;
   border-radius: 10px;
   box-shadow: 1px 1px 5px 0.2px gray;
   transition: var(--lowTransition);
+}
+
+@media (max-width: 500px) {
+  .dataContainer {
+    width: 80vw;
+  }
 }
 
 .dataContainer:hover {
@@ -177,23 +182,19 @@ select {
   justify-content: center;
 }
 
-.dataset button {
-  width: fit-content;
-  font-size: 15px;
-}
-
-.dataset .columnset {
-  width: 30px;
-  background-color: transparent;
-}
-
-.dataset .columnset:hover {
-  background-color: transparent;
-  cursor: auto;
+.dataset svg {
+  cursor: pointer;
 }
 
 .datasetInput {
   width: 100%;
+}
+
+@media (max-width: 500px) {
+  .dataset .half {
+    width: 40%;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 767px) {
@@ -208,6 +209,26 @@ select {
 
   .half h3 {
     width: 15%;
+  }
+}
+
+@media (max-width: 500px) {
+  .full input,
+  select {
+    width: 50%;
+  }
+
+  .full h3 {
+    width: 50%;
+  }
+
+  .half input,
+  select {
+    width: 50%;
+  }
+
+  .half h3 {
+    width: 50%;
   }
 }
 
@@ -239,7 +260,7 @@ select {
 }
 
 .buttons {
-  margin: 50px;
+  margin: 50px 0;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;
@@ -257,6 +278,13 @@ select {
   padding: 10px;
   cursor: pointer;
   transition: var(--lowTransition);
+}
+
+@media (max-width: 767px) {
+  .buttons button {
+    font-size: 15px;
+    padding: 8px;
+  }
 }
 
 .buttons button:hover {
