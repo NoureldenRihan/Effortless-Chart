@@ -182,18 +182,18 @@ select {
   justify-content: center;
 }
 
-.dataset svg {
-  cursor: pointer;
-}
-
 .datasetInput {
   width: 100%;
 }
 
 @media (max-width: 500px) {
   .dataset .half {
-    width: 40%;
+    width: 50%;
     justify-content: center;
+  }
+
+  .dataset .half input {
+    width: calc(100% - 25px);
   }
 }
 
@@ -250,6 +250,20 @@ select {
 
 .colorState input {
   width: 10%;
+}
+
+.datasetManipulation {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.datasetManipulation svg {
+  margin: 1px;
+  padding: 4px;
+  cursor: pointer;
 }
 
 /* End Data.jsx */
