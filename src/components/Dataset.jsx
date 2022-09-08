@@ -16,8 +16,8 @@ function Dataset() {
         <input
           id="datasetValue"
           className="datasetInput datasetValue"
-          placeholder="Value in Numbers"
-          type="text"
+          placeholder="Value"
+          type="number"
           required
         />
       </div>
