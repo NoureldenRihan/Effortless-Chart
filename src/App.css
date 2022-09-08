@@ -32,6 +32,17 @@
 }
 
 /* End Responsive Containers */
+
+/* Start Body Tag  */
+
+@media (max-width: 767px) {
+  .responsive {
+    width: 160vw;
+  }
+}
+
+/* End Body Tag  */
+
 /* Start Nav.jsx */
 
 nav {
@@ -289,6 +300,8 @@ select {
 
 .chart {
   margin: 50px 0 0 0;
+  position: relative;
+  width: 100%;
 }
 
 .buttons {
@@ -298,6 +311,9 @@ select {
   justify-content: space-around;
   align-items: center;
   width: 100%;
+  border: 3px solid #38b6ff;
+  padding: 10px 0;
+  border-radius: 9999px;
 }
 
 .buttons button {

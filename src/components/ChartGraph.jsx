@@ -23,6 +23,7 @@ function ChartGraph() {
         ],
       },
       options: {
+        responsive: true,
         plugins: {
           title: {
             display: true,
@@ -91,6 +92,14 @@ function ChartGraph() {
       link.href = canvas.toDataURL();
       link.click();
     });
+    setInterval(() => {
+      let bodyClasses = document.getElementsByTagName("body")[0].classList;
+      if (window.location.pathname === "/chart") {
+        bodyClasses.add("responsive");
+      } else {
+        bodyClasses.remove("responsive");
+      }
+    }, 300);
   }, []);
 
   return (
