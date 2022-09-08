@@ -8,8 +8,20 @@ function ChartGraph() {
 
   const chartSetup = () => {
     const ctx = document.getElementById("chartCanvas").getContext("2d");
+    const plugin = {
+      id: "custom_canvas_background_color",
+      beforeDraw: (chart) => {
+        const { ctx } = chart;
+        ctx.save();
+        ctx.globalCompositeOperation = "destination-over";
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, chart.width, chart.height);
+        ctx.restore();
+      },
+    };
     new Chart(ctx, {
       type: chartData.type,
+      plugins: [plugin],
       data: {
         labels: chartData.data.labels,
         datasets: [
@@ -30,7 +42,7 @@ function ChartGraph() {
             text: chartData.options.plugins.title.text,
             font: {
               family: "Arial",
-              size: 30,
+              size: 22,
               weight: "700",
             },
             color: "#000000",
@@ -88,7 +100,7 @@ function ChartGraph() {
     const canvas = document.getElementById("chartCanvas");
     document.getElementById("download").addEventListener("click", function (e) {
       const link = document.createElement("a");
-      link.download = `${chartData.data.datasets[0].label}-${chartData.type}Chart.png`;
+      link.download = `${chartData.options.plugins.title.text}-${chartData.type}Chart.png`;
       link.href = canvas.toDataURL();
       link.click();
     });
