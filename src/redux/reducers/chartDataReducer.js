@@ -1,29 +1,23 @@
 const chartDataOrganizer = (data) => {
   let chartData = {
+    colorState: data.colorState,
     type: `${data.chartType}`,
     data: {
       labels: data.labels,
       datasets: [
         {
-          label: `${data.chartTitle}`,
           data: data.values,
           backgroundColor: data.backgroundColors,
           borderColor: data.borderColors,
-          borderWidth: () => {
-            if (data.borderWidth >= 5) {
-              return 5;
-            } else if (data.borderWidth <= 0) {
-              return 1;
-            } else if (isNaN(data.borderWidth)) {
-              return 1;
-            } else {
-              return data.borderWidth;
-            }
-          },
         },
       ],
     },
     options: {
+      plugins: {
+        title: {
+          text: `${data.chartTitle}`,
+        },
+      },
       scales: {
         y: {
           beginAtZero: false,
@@ -44,15 +38,36 @@ const chartDataOrganizer = (data) => {
   return chartData;
 };
 
+const localStorageData = () => {
+  if (localStorage.getItem("chartData") !== null) {
+    let storedModel = JSON.parse(localStorage.getItem("chartData"));
+    let dataModel = {
+      colorState: storedModel.colorState,
+      chartTitle: storedModel.options.plugins.title.text,
+      chartType: storedModel.type,
+      labels: storedModel.data.labels,
+      values: storedModel.data.datasets[0].data,
+      labelsTitle: storedModel.options.scales.x.title.text,
+      valuesTitle: storedModel.options.scales.y.title.text,
+      backgroundColors: storedModel.data.datasets[0].backgroundColor,
+      borderColors: storedModel.data.datasets[0].borderColor,
+    };
+    return chartDataOrganizer(dataModel);
+  }
+  return {};
+};
+
 const chartDataReducer = (state = {}, action) => {
   switch (action.type) {
     case "CREATE_CHART":
       let newState = chartDataOrganizer(action.payload.data);
+      localStorage.setItem("chartData", JSON.stringify(newState));
       return newState;
     case "DELETE_CHART":
       return {};
     default:
-      return state;
+      let storedState = localStorageData();
+      return storedState;
   }
 };
 

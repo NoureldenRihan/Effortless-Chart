@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux/es/exports";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux/es/exports";
 import { Link } from "react-router-dom";
 import { createChart } from "../redux/actions/actions";
 import Dataset from "./Dataset";
@@ -7,6 +7,7 @@ import Dataset from "./Dataset";
 function Data() {
   const [dataCounter, setdataCounter] = useState(2);
   const [dataset, setdataset] = useState([]);
+  const chartData = useSelector((state) => state.chartDataReducer);
   const dispatch = useDispatch();
 
   const setColors = () => {
@@ -66,14 +67,16 @@ function Data() {
       valuesTitle: document.getElementById("valuesTitle").value,
       backgroundColors: colors,
       borderColors: bordercolors,
+      colorState: document.querySelector(
+        "input[type=radio][name=colorState]:checked"
+      ).value,
     };
 
     dispatch(createChart(chartData));
     document.getElementById("chartPage").click();
   };
 
-  const removeDataset = (e) => {
-    e.preventDefault();
+  const removeDataset = () => {
     setdataset(dataset.slice(0, -1));
     setdataCounter((old) => {
       if (old !== 0) {
@@ -82,15 +85,60 @@ function Data() {
         return 1;
       }
     });
-    return;
   };
 
-  const addDataset = (e) => {
-    e.preventDefault();
+  const addDataset = () => {
     setdataset(dataset.concat(<Dataset key={dataset.length} />));
     setdataCounter(dataCounter + 1);
-    return;
   };
+
+  const getStoredData = () => {
+    dispatch({ type: "" });
+
+    if (chartData.type === undefined) {
+      return;
+    }
+
+    document.getElementById("chartTitle").value =
+      chartData.options.plugins.title.text;
+
+    document.getElementById("chartType").value = chartData.type;
+    document.getElementById("labelsTitle").value =
+      chartData.options.scales.x.title.text;
+    document.getElementById("valuesTitle").value =
+      chartData.options.scales.x.title.text;
+
+    if (chartData.colorState === "single") {
+      document.getElementById("singleColor").checked = true;
+    } else if (chartData.colorState === "multiple") {
+      document.getElementById("MultipleColor").checked = true;
+    }
+
+    for (let i = 1; i < chartData.data.labels.length; i++) {
+      setdataset((old) => [...old, <Dataset key={Math.random()} />]);
+    }
+
+    setdataCounter(chartData.data.labels.length);
+
+    for (let i = 0; i < chartData.data.labels.length; i++) {
+      setTimeout(() => {
+        document.querySelectorAll("#datasetLabel")[i].value =
+          chartData.data.labels[i];
+        document.querySelectorAll("#datasetValue")[i].value =
+          chartData.data.datasets[0].data[i];
+      }, 250);
+    }
+  };
+
+  const dataClear = (e) => {
+    e.preventDefault();
+    localStorage.clear();
+    window.location.reload();
+  };
+
+  useEffect(() => {
+    getStoredData();
+  }, []);
 
   return (
     <div className="dataContainer">
@@ -121,34 +169,11 @@ function Data() {
         </div>
         <hr className="breaker" />
         <h2>Data Sets</h2>
-        <div className="datasetManipulation">
-          <svg
-            className="removeDataset"
-            onClick={removeDataset}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-12v-2h12v2z" />
-          </svg>
-          <svg
-            className="addDataset"
-            onClick={addDataset}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z" />
-          </svg>
-        </div>
-
         <div id="datasets" className="datasets">
           <div className="dataset">
             <div className="half">
               <input
-                id="chartTitle"
+                id="datasetLabel"
                 className="datasetInput datasetLabel"
                 placeholder="Label"
                 type="text"
@@ -157,7 +182,7 @@ function Data() {
             </div>
             <div className="half">
               <input
-                id="chartTitle"
+                id="datasetValue"
                 className="datasetInput datasetValue"
                 placeholder="Value in Numbers"
                 type="text"
@@ -166,6 +191,32 @@ function Data() {
             </div>
           </div>
           {dataset}
+          <div className="datasetManipulation">
+            <div
+              id="removeDataset"
+              className="removeDataset"
+              onClick={removeDataset}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-12v-2h12v2z" />
+              </svg>
+            </div>
+            <div id="addDataset" className="addDataset" onClick={addDataset}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z" />
+              </svg>
+            </div>
+          </div>
         </div>
         <hr className="breaker" />
         <div className="full">
@@ -173,7 +224,7 @@ function Data() {
           <div className="colorState">
             <label htmlFor="colorState">Single</label>
             <input
-              id="labelsTitle"
+              id="singleColor"
               type="radio"
               name="colorState"
               value="single"
@@ -183,7 +234,7 @@ function Data() {
           <div className="colorState">
             <label htmlFor="colorState">Multiple</label>
             <input
-              id="labelsTitle"
+              id="MultipleColor"
               type="radio"
               name="colorState"
               value="multiple"
@@ -191,6 +242,9 @@ function Data() {
             />
           </div>
         </div>
+        <button id="reset" onClick={dataClear}>
+          Reset Data
+        </button>
         <button>Create Chart</button>
       </form>
       <Link id="chartPage" to="/chart"></Link>

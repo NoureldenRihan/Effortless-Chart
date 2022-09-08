@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
 import Chart from "chart.js/auto";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteChart } from "../redux/actions/actions";
 
 function ChartGraph() {
   const chartData = useSelector((state) => state.chartDataReducer);
-  const dispatch = useDispatch();
 
   const chartSetup = () => {
     const ctx = document.getElementById("chartCanvas").getContext("2d");
@@ -16,7 +14,7 @@ function ChartGraph() {
         labels: chartData.data.labels,
         datasets: [
           {
-            label: chartData.data.datasets[0].label,
+            label: "",
             data: chartData.data.datasets[0].data,
             backgroundColor: chartData.data.datasets[0].backgroundColor,
             borderColor: chartData.data.datasets[0].borderColor,
@@ -25,28 +23,63 @@ function ChartGraph() {
         ],
       },
       options: {
+        plugins: {
+          title: {
+            display: true,
+            text: chartData.options.plugins.title.text,
+            font: {
+              family: "Arial",
+              size: 30,
+              weight: "700",
+            },
+            color: "#000000",
+          },
+        },
         scales: {
           y: {
-            beginAtZero: false,
+            beginAtZero: true,
             title: {
               display: chartData.options.scales.y.title.display,
               text: chartData.options.scales.y.title.text,
+              font: {
+                family: "Arial",
+                size: 19,
+                weight: "700",
+              },
+              color: "#000000",
+            },
+            ticks: {
+              font: {
+                family: "Arial",
+                size: 12,
+                weight: "600",
+              },
+              color: "#00000099",
             },
           },
           x: {
             title: {
               display: chartData.options.scales.x.title.display,
               text: chartData.options.scales.x.title.text,
+              font: {
+                family: "Arial",
+                size: 19,
+                weight: "600",
+              },
+              color: "#000000",
+            },
+            ticks: {
+              font: {
+                family: "Arial",
+                size: 13,
+                weight: "900",
+              },
+              color: "#00000099",
             },
           },
         },
       },
     });
-  };
-
-  const back = () => {
-    dispatch(deleteChart(chartData));
-    document.getElementById("createChartPage").click();
   };
 
   useEffect(() => {
@@ -66,7 +99,11 @@ function ChartGraph() {
         <canvas id="chartCanvas"></canvas>
       </div>
       <div className="buttons">
-        <button onClick={back}>Create Another Chart</button>
+        <button
+          onClick={() => document.getElementById("createChartPage").click()}
+        >
+          Create Another Chart
+        </button>
         <button id="download">Download Image</button>
       </div>
       <Link id="createChartPage" to="/"></Link>

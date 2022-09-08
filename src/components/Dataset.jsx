@@ -5,7 +5,7 @@ function Dataset() {
     <div className="dataset">
       <div className="half">
         <input
-          id="chartTitle"
+          id="datasetLabel"
           className="datasetInput datasetLabel"
           placeholder="Label"
           type="text"
@@ -14,7 +14,7 @@ function Dataset() {
       </div>
       <div className="half">
         <input
-          id="chartTitle"
+          id="datasetValue"
           className="datasetInput datasetValue"
           placeholder="Value in Numbers"
           type="text"

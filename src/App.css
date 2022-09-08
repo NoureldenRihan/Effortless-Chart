@@ -43,6 +43,12 @@ nav {
   margin: auto;
 }
 
+@media (max-width: 767px) {
+  .logo {
+    width: 150px;
+  }
+}
+
 .logoImage {
   width: 100%;
 }
@@ -72,7 +78,7 @@ nav {
 .title {
   text-align: center;
   font-size: 45px;
-  color: #ff0000;
+  color: #38b6ff;
   margin-bottom: 25px;
 }
 
@@ -235,7 +241,8 @@ select {
 .breaker {
   margin: auto;
   width: 76%;
-  border: 0.5px solid black;
+  background-color: black;
+  border: 2px solid black;
 }
 
 .form h2,
@@ -264,6 +271,17 @@ select {
   margin: 1px;
   padding: 4px;
   cursor: pointer;
+}
+
+#reset {
+  width: fit-content;
+  margin: auto;
+  background-color: #ff0000aa;
+  transition: var(--lowTransition);
+}
+
+#reset:hover {
+  background-color: #ff0000;
 }
 
 /* End Data.jsx */
