@@ -242,10 +242,10 @@ function Data() {
             />
           </div>
         </div>
+        <button>Create Chart</button>
         <button id="reset" onClick={dataClear}>
           Reset Data
         </button>
-        <button>Create Chart</button>
       </form>
       <Link id="chartPage" to="/chart"></Link>
     </div>
